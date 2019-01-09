@@ -106,3 +106,12 @@ img {
 	font-weight: 700;
 }
 
+#scoreBox {
+	background-color: #00A6B3;
+	color: white;
+	font-family: "Raleway";
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin: 0 0 40px 0;
+	padding: 2px 10px;
+}
