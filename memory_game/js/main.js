@@ -23,29 +23,49 @@ var cards = [
 }
 ];
 
+function createBoard() {
+	for (let i = 0; i < cards.length; i++) {
+		let cardElement = document.createElement('img');
+		cardElement.setAttribute('src', 'images/back.png');
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click', flipCard)
+		document.querySelector('#game-board').appendChild(cardElement)
+	}
+}
+
 var cardsInPlay = [];
 
-function flipCard(cardId) {
+function flipCard() {
+	let cardId = this.getAttribute('data-id')
+
 	console.log("User flipped " + cards[cardId].rank)
 
 	cardsInPlay.push(cards[cardId].rank);
 
-	console.log(cards[cardId].cardImage)
-	console.log(cards[cardId].suit)
+	this.setAttribute('src', cards[cardId].cardImage)
 
-	checkForMatch()
+	setTimeout(checkForMatch, 200)
 }
 
-flipCard(0)
-flipCard(2)
+function clearBoard() {
+	document.querySelectorAll('img').forEach(function(element) {
+		element.setAttribute('src', 'images/back.png')
+	})
+	cardsInPlay = []
+}
 
 function checkForMatch() {
 	if (cardsInPlay.length === 2) {
-	if (cardsInPlay[1] === cardsInPlay[2]) {
-		alert("You found a match!");
-	} else {
-		alert("Sorry, try again")
-		cardsInPlay = []
+		if (cardsInPlay[0] === cardsInPlay[1]) {
+			alert("You found a match!");
+			clearBoard()
+		} else {
+			alert("Sorry, try again")
+			cardsInPlay = []
+			clearBoard()
+		}
 	}
 }
-}
+
+
+createBoard()
